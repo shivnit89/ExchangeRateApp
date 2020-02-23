@@ -1,0 +1,11 @@
+@startuml
+    Client->ExchangeRateController:getLatestRate()
+    ExchangeRateController -> HTTPClient : send()
+            Note  right: calling external service \nhttps://blockchain.info/ticker
+    HTTPClient->ExchangeRateController:exchangeRateResponse
+    ExchangeRateController->ExchangeRateUtil:convertToMap(exchangeRateResponse)
+    ExchangeRateUtil->ExchangeRateController: exchangeRateMap
+    ExchangeRateController->ExchangeRateUtil: convert to exchangeRate DTO
+    ExchangeRateUtil->ExchangeRateController: EechangeRate
+            ExchangeRateController->Client:EechangeRate
+    @enduml

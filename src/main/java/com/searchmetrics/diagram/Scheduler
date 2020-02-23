@@ -1,0 +1,12 @@
+@startuml
+    CheckCurrencyExchangeRate->CheckCurrencyExchangeRate:checkExchangeRate()
+    Note right: it is a cron job will constantly call external service at \n configured time to get exchange rates and store in \nH2 in memory db
+    CheckCurrencyExchangeRate->HttpClient:send()
+    Note  right: calling external service \nhttps://blockchain.info/ticker
+    CheckCurrencyExchangeRate->ExchangeRateUtil:convertToMap()
+    ExchangeRateUtil->CheckCurrencyExchangeRate:exchangeRateMap
+    CheckCurrencyExchangeRate->ExchangeRateUtil:getExchangeRateEntity(exchangeRateMap)
+    ExchangeRateUtil->CheckCurrencyExchangeRate:exchangeRateEntity
+    CheckCurrencyExchangeRate->ExchangeRateRepository:save(exchangeRateEntity)
+
+    @enduml

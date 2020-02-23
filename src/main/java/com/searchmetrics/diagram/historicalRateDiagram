@@ -1,0 +1,6 @@
+@startuml
+    Client->ExchangeRateController:getHistoricalRate()
+    ExchangeRateController -> ExchangeRateRepository : findHistoricalData(startDate,endDate)
+    ExchangeRateRepository->ExchangeRateController:List<HistoricalData>
+            ExchangeRateController->Client:List<HistoricalData>
+    @enduml
